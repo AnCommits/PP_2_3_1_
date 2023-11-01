@@ -9,6 +9,7 @@ import web.model.Car;
 import web.service.CarService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class CarController {
@@ -20,16 +21,9 @@ public class CarController {
     }
 
     @GetMapping("/cars")
-    public String printAllCar(@RequestParam(required = false, name = "count") Integer count, ModelMap model) {
-        List<Car> cars = count == null ? carService.getAllCars() : carService.getCars(count);
+    public String printAllCar(@RequestParam(required = false, name = "count") Optional<Integer> count, ModelMap model) {
+        List<Car> cars = carService.getCars(count.orElse(5));
         model.addAttribute("cars", cars);
         return "cars";
     }
-
-//    @GetMapping("/cars/{amount}")
-//    public String printCars(@PathVariable("amount") int count, ModelMap model) {
-//        List<Car> cars = carService.getCars(count);
-//        model.addAttribute("cars", cars);
-//        return "cars";
-//    }
 }

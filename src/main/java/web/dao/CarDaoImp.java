@@ -9,13 +9,15 @@ import java.util.List;
 @Repository
 public class CarDaoImp implements CarDao {
 
-    private static final List<Car> cars = new ArrayList<>() {{
-        add(new Car("Bugatti Type 57SC", "синий", 1934));
-        add(new Car("Delahaye 175", "голубой", 1947));
-        add(new Car("Jaguar XK150", "зеленый", 1957));
-        add(new Car("Mercedes-Benz W100", "черный", 1963));
-        add(new Car("Rolls-Royce Phantom VI", "бордовый", 1968));
-    }};
+    private static final List<Car> cars = new ArrayList<>();
+
+    static {
+        cars.add(new Car("Bugatti Type 57SC", "синий", 1934));
+        cars.add(new Car("Delahaye 175", "голубой", 1947));
+        cars.add(new Car("Jaguar XK150", "зеленый", 1957));
+        cars.add(new Car("Mercedes-Benz W100", "черный", 1963));
+        cars.add(new Car("Rolls-Royce Phantom VI", "бордовый", 1968));
+    }
 
     @Override
     public List<Car> getAllCars() {
