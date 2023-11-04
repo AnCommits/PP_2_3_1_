@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<!--    <meta charset="UTF-8">-->
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
     <title>Пользователи</title>
 </head>
 <body>
@@ -24,15 +23,15 @@
         <td style="padding: 0 5px; text-align: center"><label for="day">число</label></td>
     </tr>
     <tr style="border: 0">
-        <form action="#" th:action="@{/add_user}" th:object="${userView}" method="post">
+        <form action="#" th:action="@{/addus}" th:object="${user}" method="post">
             <td><input type="text" id="firstName" size="15" th:field="*{firstName}"></td>
             <td><input type="text" id="lastName" size="20" th:field="*{lastName}"></td>
             <td><input type="text" id="email" size="25" th:field="*{email}"></td>
 
-            <td><input type="text" id="year" size="4" th:field="*{birthYear}"></td>
-            <td><input type="text" id="month" size="4" th:field="*{birthMonth}"></td>
-            <td><input type="text" id="day" size="4" th:field="*{birthDay}"></td>
-            <td><input type="submit" value="Готово"></td>
+            <td><input type="text" id="year" size="4" th:field="*{year}"></td>
+            <td><input type="text" id="month" size="4" th:field="*{month}"></td>
+            <td><input type="text" id="day" size="4" th:field="*{day}"></td>
+            <td><input type="submit"></td>
         </form>
     </tr>
     </tbody>
