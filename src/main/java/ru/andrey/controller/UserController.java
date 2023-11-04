@@ -20,17 +20,18 @@ public class UserController {
         this.userService = userService;
     }
 
+    @GetMapping("/init")
+    public String init() {
+        userService.initTable();
+        return "redirect:users";
+    }
+
     @GetMapping("/users")
     public String showUsers(ModelMap model) {
         List<User> users = userService.getAllUsers();
         model.addAttribute("users", users);
-        return "users";
-    }
-
-    @GetMapping("/add_user")
-    public String showAddUser(ModelMap model) {
         model.addAttribute("userView", new UserView());
-        return "add_user";
+        return "users";
     }
 
     @PostMapping("/add_user")
