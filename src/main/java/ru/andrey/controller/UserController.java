@@ -5,6 +5,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.andrey.model.User;
 import ru.andrey.service.UserService;
 import ru.andrey.util.UserView;
@@ -36,11 +37,15 @@ public class UserController {
 
     @PostMapping("/add_user")
     public String addUser(@ModelAttribute UserView userView) {
-        System.out.println("Method addUser()");
-        System.out.println(userView.getFirstName());
         User user = userView.getUser();
         System.out.println(user);
         userService.addUser(user);
+        return "redirect:users";
+    }
+
+    @GetMapping("/remove_user")
+    public String removeUser(@RequestParam(name = "id") long id) {
+        userService.removeUserById(id);
         return "redirect:users";
     }
 }

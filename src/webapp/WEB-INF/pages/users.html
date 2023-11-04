@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Пользователи</title>
@@ -22,8 +22,13 @@
         <td style="border: 0; padding: 0 5px; text-align: center" th:text="${user.birthDayToString()}"></td>
         <td style="border: 0; padding: 0 5px; text-align: center" th:text="${user.recordDateTimeToString()}"></td>
 
-        <td style="border: 0; padding: 0 5px; text-align: center"><a href="" class="button">Редактироать</a></td>
-        <td style="border: 0; padding: 0 5px; text-align: center"><a href="" class="button">Удалить</a></td>
+        <td style="border: 0; padding: 0 5px; text-align: center"><a href="/" class="button">Редактироать</a></td>
+
+        <td style="border: 0; padding: 0 5px; text-align: center">
+            <a href="/remove_user?id=" th:attr="href='/remove_user?id=' + ${user.id}" class="button">
+                Удалить
+            </a>
+        </td>
     </tr>
     </tbody>
 </table>
@@ -45,7 +50,7 @@
         <td style="padding: 0 5px; text-align: center"><label for="day">число</label></td>
     </tr>
     <tr style="border: 0">
-        <form action="#" th:action="@{/add_user}" th:object="${userView}" method="post">
+        <form th:action="add_user" th:object="${userView}" method="post">
             <td><input type="text" id="firstName" size="15" th:field="*{firstName}"></td>
             <td><input type="text" id="lastName" size="20" th:field="*{lastName}"></td>
             <td><input type="text" id="email" size="25" th:field="*{email}"></td>
@@ -60,7 +65,7 @@
 </table>
 </body>
 
-<!--Почему в виде css файла стили не загружаются ? -->
+<!-- Почему css стили не загружаются ? -->
 <style>
     .button {
         display: inline-block;
