@@ -106,25 +106,21 @@ public class UserDaoImp implements UserDao {
         removeAllUsers();
 
         //  user1
-        Calendar birthDay1 = new GregorianCalendar(1879, Calendar.MARCH, 14);
         User user1 = new User("Альберт", "Эйнштейн", "albert_einstein@gmail.com",
-                birthDay1.getTime(), new Date());
+                new GregorianCalendar(1879, Calendar.MARCH, 14).getTime());
 
         //  user2
-        Calendar birthDay2 = new GregorianCalendar(287, Calendar.JANUARY, 1);
         User user2 = new User("Архимед", null, "archimedes@pigeon.org",
-                birthDay2.getTime(), new Date());
+                new GregorianCalendar(287, Calendar.JANUARY, 1).getTime());
         user2.setEraBc(true);
 
         //  user3
-        Calendar birthDay3 = new GregorianCalendar(1452, Calendar.APRIL, 15);
         User user3 = new User("Леонардо", "да Винчи", "leonardo_da_vinci@yahoo.com",
-                birthDay3.getTime(), new Date());
+                new GregorianCalendar(1452, Calendar.APRIL, 15).getTime());
 
         //  user4
-        Calendar birthDay4 = new GregorianCalendar(1856, Calendar.JULY, 10);
         User user4 = new User("Никола", "Тесла", "nikola_tesla@tesla.edu",
-                birthDay4.getTime(), new Date());
+                new GregorianCalendar(1856, Calendar.JULY, 10).getTime());
 
         addUser(user1);
         addUser(user2);

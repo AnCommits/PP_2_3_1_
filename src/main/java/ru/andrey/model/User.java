@@ -32,6 +32,7 @@ public class User {
     private String email;
 
     @Column(name = "birth_date")
+    @Temporal(TemporalType.DATE)
     private Date birthDate;
 
     // field keeps era in MySQL
@@ -39,18 +40,20 @@ public class User {
     private boolean eraBc;
 
     @Column(name = "record_date_time")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date recordDateTime;
 
     public User() {
+        this.recordDateTime = new Date();
     }
 
-    public User(String firstName, String lastName, String email, Date birthDate, Date recordDateTime) {
+    public User(String firstName, String lastName, String email, Date birthDate) {
+        this();
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.birthDate = birthDate;
         eraBc = birthDate.before(newEra.getTime());
-        this.recordDateTime = recordDateTime;
     }
 
     public long getId() {
@@ -121,17 +124,18 @@ public class User {
     public String birthDayToString() {
         final DateFormat BC = new SimpleDateFormat("yyyy-MM-dd до н.э.");
         final DateFormat AD = new SimpleDateFormat("yyyy-MM-dd");
-        return birthDate.before(newEra.getTime()) ? BC.format(birthDate) : AD.format(birthDate);
+        return birthDate != null
+                ? birthDate.before(newEra.getTime()) ? BC.format(birthDate) : AD.format(birthDate)
+                : "нет данных";
     }
 
     public String recordDateTimeToString() {
-        return new SimpleDateFormat("yyyy-MM-dd, HH:mm").format(recordDateTime);
+        return new SimpleDateFormat("yyyy-MM-dd, HH:mm:ss").format(recordDateTime);
     }
 
     @Override
     public String toString() {
-        return id + " " + firstName + " " + lastName + " " + email + " " +
+        return id + " " + getFirstName() + " " + getLastName() + " " + getEmail() + " " +
                 birthDayToString() + " " + recordDateTimeToString();
-
     }
 }
