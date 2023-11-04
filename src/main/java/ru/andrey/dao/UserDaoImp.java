@@ -121,9 +121,14 @@ public class UserDaoImp implements UserDao {
         User user4 = new User("Никола", "Тесла", "nikola_tesla@tesla.edu",
                 new GregorianCalendar(1856, Calendar.JULY, 10).getTime());
 
+        //  user5
+        User user5 = new User();
+        user5.setFirstName("Неизвестный");
+
         addUser(user1);
         addUser(user2);
         addUser(user3);
         addUser(user4);
+        addUser(user5);
     }
 }

@@ -64,14 +64,20 @@ public class UserView {
     }
 
     public User getUser() {
-        int year = Integer.parseInt(birthYear);
-        boolean eraBc = year < 0;
-        year = Math.abs(year);
-        int month = Integer.parseInt(birthMonth) - 1;
-        int day = Integer.parseInt(birthDay);
-        User user = new User(firstName, lastName, email,
-                new GregorianCalendar(year, month, day).getTime());
-        user.setEraBc(eraBc);
+        User user = new User(firstName, lastName, email);
+        try {
+            int year = Integer.parseInt(birthYear);
+            boolean eraBc = year < 0;
+            year = Math.abs(year);
+            int month = Integer.parseInt(birthMonth) - 1;
+            int day = Integer.parseInt(birthDay);
+            if (month >= 0 && month <= 11 && day >= 1 && day <= 31 ) {
+                user.setBirthDate(new GregorianCalendar(year, month, day).getTime());
+            }
+            user.setEraBc(eraBc);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
         return user;
     }
 }

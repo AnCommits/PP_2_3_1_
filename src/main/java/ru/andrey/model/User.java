@@ -11,12 +11,12 @@ import java.util.GregorianCalendar;
 @Table(name = "users")
 public class User {
 
-    private final static Calendar newEra;
-
+    private final static Calendar newEra =
+            new GregorianCalendar(1, Calendar.DECEMBER, 31, 23, 59, 59);
     static {
-        newEra = new GregorianCalendar(1, Calendar.DECEMBER, 31, 23, 59, 59);
         newEra.set(Calendar.ERA, GregorianCalendar.BC);
     }
+    private final static Date date0 = newEra.getTime();
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,6 +45,16 @@ public class User {
 
     public User() {
         this.recordDateTime = new Date();
+    }
+
+    public User(String firstName, String lastName, String email) {
+        this();
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        if (birthDate != null) {
+            eraBc = birthDate.before(date0);
+        }
     }
 
     public User(String firstName, String lastName, String email, Date birthDate) {
@@ -107,10 +117,12 @@ public class User {
         // Для сравнения дат до н.э. в поле birthDate должно быть корректное значение даты.
         // Флаг eraBc нужен только для сохрания в MySQL дат до н.э.
         // Поэтому пересчитываем birthDate с учетом эры.
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(getBirthDate());
-        calendar.set(Calendar.ERA, isEraBc() ? GregorianCalendar.BC : GregorianCalendar.AD);
-        setBirthDate(calendar.getTime());
+        if (birthDate != null) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(getBirthDate());
+            calendar.set(Calendar.ERA, isEraBc() ? GregorianCalendar.BC : GregorianCalendar.AD);
+            setBirthDate(calendar.getTime());
+        }
     }
 
     public Date getRecordDateTime() {
@@ -126,7 +138,7 @@ public class User {
         final DateFormat AD = new SimpleDateFormat("yyyy-MM-dd");
         return birthDate != null
                 ? birthDate.before(newEra.getTime()) ? BC.format(birthDate) : AD.format(birthDate)
-                : "нет данных";
+                : "";
     }
 
     public String recordDateTimeToString() {
