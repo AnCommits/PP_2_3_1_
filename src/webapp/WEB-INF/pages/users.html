@@ -30,19 +30,30 @@
 
 <h4 style="text-align: center">Добавить пользователя</h4>
 
-<table style="border: 1px solid; margin: auto">
+<table style="background-color: #fcfaed; border: 1px solid; margin: auto">
     <tbody>
     <tr>
-        <td style="width: 100px; padding: 0 5px; text-align: center" rowspan="2">Имя</td>
-        <td style="width: 150px; padding: 0 5px; text-align: center" rowspan="2">Фамилия</td>
-        <td style="width: 200px; padding: 0 5px; text-align: center" rowspan="2">Е-мейл</td>
+        <td style="padding: 0 5px; text-align: center" rowspan="2"><label for="firstName">Имя</label></td>
+        <td style="padding: 0 5px; text-align: center" rowspan="2"><label for="lastName">Фамилия</label></td>
+        <td style="padding: 0 5px; text-align: center" rowspan="2"><label for="email">Е-мейл</label></td>
         <td colspan="3" style="text-align: center">Дата рождения</td>
         <td rowspan="2"></td>
     </tr>
     <tr>
-        <td style="width: 48px; padding: 0 5px; text-align: center">год</td>
-        <td style="width: 48px; padding: 0 5px; text-align: center">месяц</td>
-        <td style="width: 48px; padding: 0 5px; text-align: center">число</td>
+        <td style="padding: 0 5px; text-align: center"><label for="year">год</label></td>
+        <td style="padding: 0 5px; text-align: center"><label for="month">месяц</label></td>
+        <td style="padding: 0 5px; text-align: center"><label for="day">число</label></td>
+    </tr>
+    <tr style="border: 0">
+        <form action="/add_user" method="post">
+            <td><input type="text" name="data1" id="firstName" size="15"></td>
+            <td><input type="text" name="data1" id="lastName" size="20"></td>
+            <td><input type="text" name="data1" id="email" size="25"></td>
+            <td><input type="text" name="data1" id="year" size="4"></td>
+            <td><input type="text" name="data1" id="month" size="4"></td>
+            <td><input type="text" name="data1" id="day" size="4"></td>
+            <td><input type="submit" value="Готово"></td>
+        </form>
     </tr>
     </tbody>
 </table>
@@ -58,7 +69,7 @@
         border: 1px solid #0007e0;
         border-radius: 4px;
         font-size: 14px;
-        padding: 4px 10px;
+        padding: 2px 6px;
         transition: all 0.3s ease;
     }
 
@@ -67,24 +78,5 @@
         color: #4500b5;
         border: 1px solid #000000;
     }
-
-    /*.button_edit {*/
-    /*    display: inline-block;*/
-    /*    font-family: 'Arial', 'Verdana', serif;*/
-    /*    text-decoration: none;*/
-    /*    background-color: #e5e5e5;*/
-    /*    color: #0007e0;*/
-    /*    border: 1px solid #0007e0;*/
-    /*    border-radius: 4px;*/
-    /*    font-size: 12px;*/
-    /*    padding: 4px 10px;*/
-    /*    transition: all 0.3s ease;*/
-    /*}*/
-
-    /*.button_edit:hover {*/
-    /*    background-color: #d4e4fc;*/
-    /*    color: #4500b5;*/
-    /*    border: 1px solid #000000;*/
-    /*}*/
 </style>
 </html>
