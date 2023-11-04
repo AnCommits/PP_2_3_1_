@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>Пользователи</title>
 </head>
 <body>
-<div>
-    <th:block th:each="msg : ${messages}">
-        <h1 th:text="${msg}"></h1>
-    </th:block>
-</div>
+    <div style="text-align: center">
+    <div style="font-size: 150%"><a href="/init">Начальное заполнение списка пользователей</a></div>
+    <div>Удаляет из списка все данные и заполняет 4 пользователями</div>
+    </div>
+    <div style="font-size: 150%; text-align: center"><a href="/users">Список пользователей</a></div>
 </body>
 </html>

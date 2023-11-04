@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Пользователи</title>
+</head>
+<body>
+<h2 style="text-align: center">Список пользователей</h2>
+    <table style="border: 0; margin: auto;">
+        <thead>
+        <tr>
+            <th style="border: 0">Имя, фамилия</th>
+            <th style="border: 0">Е-мейл</th>
+            <th style="border: 0">Дата рождения</th>
+            <th style="border: 0">Дата, время записи</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td style="border: 0; padding: 0 5px" th:text="${user.getFirstName()} + ' ' + ${user.getLastName()}"></td>
+            <td style="border: 0; padding: 0 5px" th:text="${user.getEmail()}"></td>
+            <td style="border: 0; padding: 0 5px; text-align: center" th:text="${user.birthDayToString()}"></td>
+            <td style="border: 0; padding: 0 5px; text-align: center" th:text="${user.recordDateTimeToString()}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>
