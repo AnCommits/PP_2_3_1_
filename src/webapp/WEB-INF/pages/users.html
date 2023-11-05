@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Пользователи</title>
 </head>
 <body>
@@ -50,7 +50,7 @@
     </thead>
     <tbody>
     <tr style="border: 0">
-        <form th:action="add_user" th:object="${userView}" method="post">
+        <form th:action="add_user" th:object="${userView}" method="get">
             <td><input type="text" id="firstName" size="15" th:field="*{firstName}"></td>
             <td><input type="text" id="lastName" size="20" th:field="*{lastName}"></td>
             <td><input type="text" id="email" size="25" th:field="*{email}"></td>
@@ -64,7 +64,7 @@
 </table>
 </body>
 
-<!-- Почему css стили не загружаются ? -->
+<!-- Почему css стили не загружаются(или не применяются) ? -->
 <style>
     .button {
         display: inline-block;

@@ -10,7 +10,7 @@ public class UserView {
     private String firstName;
     private String lastName;
     private String email;
-    // Для обозначения года до н.э. используется знак минус
+    // Для обозначения года до н.э. используются отрицательные чмсла
     private String birthYear;
     private String birthMonth;
     private String birthDay;

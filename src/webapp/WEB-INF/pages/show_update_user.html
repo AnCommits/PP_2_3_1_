@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Пользователи</title>
 </head>
 <body>
 <table style="border: 1px solid; margin: auto">
-    <form th:action="update_user" th:object="${userView}" method="post">
+    <form th:action="update_user" th:object="${userView}" method="get">
         <tr>
             <td>
                 <table style="border: 0; margin: auto">

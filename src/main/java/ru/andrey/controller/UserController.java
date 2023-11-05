@@ -4,7 +4,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.andrey.model.User;
 import ru.andrey.service.UserService;
@@ -40,7 +39,7 @@ public class UserController {
         return "users";
     }
 
-    @PostMapping("/add_user")
+    @GetMapping("/add_user")
     public String addUser(@ModelAttribute UserView userView) {
         User user = userView.getUser();
         userService.addUser(user);
@@ -61,9 +60,10 @@ public class UserController {
         return "show_update_user";
     }
 
-    @PostMapping("/update_user")
+    @GetMapping("/update_user")
     public String updateUser(@ModelAttribute UserView userView) {
         User user = userView.getUser();
+        System.out.println(userView.getFirstName());
         user.setId(this.id);
         userService.updateUser(user);
         return "redirect:users";
