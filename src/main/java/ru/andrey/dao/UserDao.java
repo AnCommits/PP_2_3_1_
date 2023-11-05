@@ -19,6 +19,4 @@ public interface UserDao {
     void removeUserById(long id);
 
     void removeAllUsers();
-
-    void initTable();
 }

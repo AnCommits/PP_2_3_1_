@@ -52,18 +52,14 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        if (birthDate != null) {
-            eraBc = birthDate.before(date0);
-        }
     }
 
     public User(String firstName, String lastName, String email, Date birthDate) {
-        this();
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
+        this(firstName, lastName, email);
         this.birthDate = birthDate;
-        eraBc = birthDate.before(newEra.getTime());
+        if (birthDate != null) {
+            eraBc = birthDate.before(date0);
+        }
     }
 
     public long getId() {
@@ -113,13 +109,13 @@ public class User {
 
     public void setEraBc(boolean eraBc) {
         this.eraBc = eraBc;
-        // При сохранении даты в MySQL информация об эре теряется.
-        // Для сравнения дат до н.э. в поле birthDate должно быть корректное значение даты.
-        // Флаг eraBc нужен только для сохрания в MySQL дат до н.э.
-        // Поэтому пересчитываем birthDate с учетом эры.
+        // При сохранении даты java.util.Date в java.sql.Date информация об эре теряется.
+        // Поле eraBc сохраняет информацию об эре в MySQL.
+        // Для сравнения дат с учетом эры в поле birthDate должна быть дата с учетом эры.
+        // Пересчитываем дату.
         if (birthDate != null) {
             Calendar calendar = Calendar.getInstance();
-            calendar.setTime(getBirthDate());
+            calendar.setTime(birthDate);
             calendar.set(Calendar.ERA, isEraBc() ? GregorianCalendar.BC : GregorianCalendar.AD);
             setBirthDate(calendar.getTime());
         }
@@ -133,7 +129,7 @@ public class User {
         this.recordDateTime = recordDateTime;
     }
 
-    public String birthDayToString() {
+    public String birthDateToString() {
         final DateFormat BC = new SimpleDateFormat("yyyy-MM-dd до н.э.");
         final DateFormat AD = new SimpleDateFormat("yyyy-MM-dd");
         return birthDate != null
@@ -148,6 +144,6 @@ public class User {
     @Override
     public String toString() {
         return id + " " + getFirstName() + " " + getLastName() + " " + getEmail() + " " +
-                birthDayToString() + " " + recordDateTimeToString();
+                birthDateToString() + " " + recordDateTimeToString();
     }
 }

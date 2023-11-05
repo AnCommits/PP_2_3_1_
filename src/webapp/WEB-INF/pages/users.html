@@ -17,38 +17,38 @@
     </thead>
     <tbody>
     <tr th:each="user : ${users}">
+        <span ></span>
         <td style="border: 0; padding: 0 5px" th:text="${user.getFirstName()} + ' ' + ${user.getLastName()}"></td>
         <td style="border: 0; padding: 0 5px" th:text="${user.getEmail()}"></td>
-        <td style="border: 0; padding: 0 5px; text-align: center" th:text="${user.birthDayToString()}"></td>
+        <td style="border: 0; padding: 0 5px; text-align: center" th:text="${user.birthDateToString()}"></td>
         <td style="border: 0; padding: 0 5px; text-align: center" th:text="${user.recordDateTimeToString()}"></td>
-
-        <td style="border: 0; padding: 0 5px; text-align: center"><a href="/" class="button">Редактироать</a></td>
-
         <td style="border: 0; padding: 0 5px; text-align: center">
-            <a href="/remove_user?id=" th:attr="href='/remove_user?id=' + ${user.id}" class="button">
-                Удалить
-            </a>
+            <a th:attr="href='/show_update_user?id=' + ${user.id}" class="button">Редактироать</a>
+        </td>
+        <td style="border: 0; padding: 0 5px; text-align: center">
+            <a th:attr="href='/remove_user?id=' + ${user.id}" class="button">Удалить</a>
         </td>
     </tr>
     </tbody>
 </table>
 
 <h4 style="text-align: center">Добавить пользователя</h4>
-
 <table style="border: 1px solid; margin: auto">
+    <thead>
+    <tr>
+        <th style="padding: 0 5px; text-align: center" rowspan="2"><label for="firstName">Имя</label></th>
+        <th style="padding: 0 5px; text-align: center" rowspan="2"><label for="lastName">Фамилия</label></th>
+        <th style="padding: 0 5px; text-align: center" rowspan="2"><label for="email">Е-мейл</label></th>
+        <th colspan="3" style="text-align: center">Дата рождения</th>
+        <th rowspan="2"></th>
+    </tr>
+    <tr>
+        <th style="padding: 0 5px; text-align: center"><label for="year">год</label></th>
+        <th style="padding: 0 5px; text-align: center"><label for="month">месяц</label></th>
+        <th style="padding: 0 5px; text-align: center"><label for="day">число</label></th>
+    </tr>
+    </thead>
     <tbody>
-    <tr>
-        <td style="padding: 0 5px; text-align: center" rowspan="2"><label for="firstName">Имя</label></td>
-        <td style="padding: 0 5px; text-align: center" rowspan="2"><label for="lastName">Фамилия</label></td>
-        <td style="padding: 0 5px; text-align: center" rowspan="2"><label for="email">Е-мейл</label></td>
-        <td colspan="3" style="text-align: center">Дата рождения</td>
-        <td rowspan="2"></td>
-    </tr>
-    <tr>
-        <td style="padding: 0 5px; text-align: center"><label for="year">год</label></td>
-        <td style="padding: 0 5px; text-align: center"><label for="month">месяц</label></td>
-        <td style="padding: 0 5px; text-align: center"><label for="day">число</label></td>
-    </tr>
     <tr style="border: 0">
         <form th:action="add_user" th:object="${userView}" method="post">
             <td><input type="text" id="firstName" size="15" th:field="*{firstName}"></td>
@@ -57,7 +57,7 @@
             <td><input type="text" id="year" size="4" th:field="*{birthYear}"></td>
             <td><input type="text" id="month" size="4" th:field="*{birthMonth}"></td>
             <td><input type="text" id="day" size="4" th:field="*{birthDay}"></td>
-            <td><input type="submit" value="Готово"></td>
+            <td><input type="submit" value="Готово" class="button"></td>
         </form>
     </tr>
     </tbody>
@@ -68,21 +68,21 @@
 <style>
     .button {
         display: inline-block;
-        font-family: 'Arial', 'Verdana', serif;
+        font-family: Arial, Helvetica, sans-serif;
         text-decoration: none;
         background-color: #e5e5e5;
-        color: #0007e0;
-        border: 1px solid #0007e0;
+        color: #000000;
+        border: 1px solid #000000;
         border-radius: 4px;
         font-size: 14px;
-        padding: 4px 10px;
+        padding: 2px 6px;
         transition: all 0.3s ease;
     }
 
     .button:hover {
         background-color: #d4e4fc;
-        color: #4500b5;
-        border: 1px solid #000000;
+        color: #001cab;
+        border: 1px solid #001cab;
     }
 </style>
 </html>

@@ -8,8 +8,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -39,10 +37,7 @@ public class UserDaoImp implements UserDao {
         String jpql = "select user from User user";
         TypedQuery<User> query = entityManager.createQuery(jpql, User.class);
         List<User> users = query.getResultList();
-        // При сохранении даты в MySQL информация об эре теряется.
-        // Для сравнения дат до н.э. в поле birthDate должно быть корректное значение даты.
-        // Флаг eraBc нужен только для сохранения в MySQL дат до н.э.
-        // Поэтому пересчитываем дату с учетом эры.
+        // Комментарий в setEraBc
         users.forEach(u -> u.setEraBc(u.isEraBc()));
         return users;
     }
@@ -53,10 +48,7 @@ public class UserDaoImp implements UserDao {
         logger.info("id: " + id);
         User user = entityManager.find(User.class, id);
         if (user != null) {
-            // При сохранении даты в MySQL информация об эре теряется.
-            // Для сравнения дат до н.э. в поле birthDate должно быть корректное значение даты.
-            // Флаг eraBc нужен только для сохранения в MySQL дат до н.э.
-            // Поэтому пересчитываем дату с учетом эры.
+            // Комментарий в setEraBc
             user.setEraBc(user.isEraBc());
         }
         return user;
@@ -97,38 +89,5 @@ public class UserDaoImp implements UserDao {
         String sql = "truncate table users";
         Query query = entityManager.createNativeQuery(sql);
         query.executeUpdate();
-    }
-
-    @Override
-    public void initTable() {
-        logger.info("");
-        removeAllUsers();
-
-        //  user1
-        User user1 = new User("Альберт", "Эйнштейн", "albert_einstein@gmail.com",
-                new GregorianCalendar(1879, Calendar.MARCH, 14).getTime());
-
-        //  user2
-        User user2 = new User("Архимед", null, "archimedes@pigeon.org",
-                new GregorianCalendar(287, Calendar.JANUARY, 1).getTime());
-        user2.setEraBc(true);
-
-        //  user3
-        User user3 = new User("Леонардо", "да Винчи", "leonardo_da_vinci@yahoo.com",
-                new GregorianCalendar(1452, Calendar.APRIL, 15).getTime());
-
-        //  user4
-        User user4 = new User("Никола", "Тесла", "nikola_tesla@tesla.edu",
-                new GregorianCalendar(1856, Calendar.JULY, 10).getTime());
-
-        //  user5
-        User user5 = new User();
-        user5.setFirstName("Неизвестный");
-
-        addUser(user1);
-        addUser(user2);
-        addUser(user3);
-        addUser(user4);
-        addUser(user5);
     }
 }

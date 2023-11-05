@@ -49,9 +49,4 @@ public class UserServiceImp implements UserService {
     public void removeAllUsers() {
         userDao.removeAllUsers();
     }
-
-    @Override
-    public void initTable() {
-        userDao.initTable();
-    }
 }

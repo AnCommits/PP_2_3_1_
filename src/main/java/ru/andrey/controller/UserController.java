@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.andrey.model.User;
 import ru.andrey.service.UserService;
+import ru.andrey.util.InitTable;
 import ru.andrey.util.UserView;
 
 import java.util.List;
@@ -15,15 +16,19 @@ import java.util.List;
 @Controller
 public class UserController {
 
-    private final UserService userService;
+    private long id;
 
-    public UserController(UserService userService) {
+    private final UserService userService;
+    private final InitTable initTable;
+
+    public UserController(UserService userService, InitTable initTable) {
         this.userService = userService;
+        this.initTable = initTable;
     }
 
     @GetMapping("/init")
     public String init() {
-        userService.initTable();
+        initTable.initTable();
         return "redirect:users";
     }
 
@@ -38,7 +43,6 @@ public class UserController {
     @PostMapping("/add_user")
     public String addUser(@ModelAttribute UserView userView) {
         User user = userView.getUser();
-        System.out.println(user);
         userService.addUser(user);
         return "redirect:users";
     }
@@ -46,6 +50,22 @@ public class UserController {
     @GetMapping("/remove_user")
     public String removeUser(@RequestParam(name = "id") long id) {
         userService.removeUserById(id);
+        return "redirect:users";
+    }
+
+    @GetMapping("/show_update_user")
+    public String show_update_user(@RequestParam(name = "id") long id, ModelMap model) {
+        this.id = id;
+        UserView userView = UserView.getUserView(userService.getUserById(id));
+        model.addAttribute("userView", userView);
+        return "show_update_user";
+    }
+
+    @PostMapping("/update_user")
+    public String updateUser(@ModelAttribute UserView userView) {
+        User user = userView.getUser();
+        user.setId(this.id);
+        userService.updateUser(user);
         return "redirect:users";
     }
 }

@@ -2,12 +2,15 @@ package ru.andrey.util;
 
 import ru.andrey.model.User;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class UserView {
     private String firstName;
     private String lastName;
     private String email;
+    // Для обозначения года до н.э. используется знак минус
     private String birthYear;
     private String birthMonth;
     private String birthDay;
@@ -71,7 +74,7 @@ public class UserView {
             year = Math.abs(year);
             int month = Integer.parseInt(birthMonth) - 1;
             int day = Integer.parseInt(birthDay);
-            if (month >= 0 && month <= 11 && day >= 1 && day <= 31 ) {
+            if (year <= 9999 && month >= 0 && month <= 11 && day >= 1 && day <= 31) {
                 user.setBirthDate(new GregorianCalendar(year, month, day).getTime());
             }
             user.setEraBc(eraBc);
@@ -79,5 +82,29 @@ public class UserView {
             e.printStackTrace();
         }
         return user;
+    }
+
+    public static UserView getUserView(User user) {
+        UserView userView = new UserView();
+
+        userView.setFirstName(user.getFirstName());
+        userView.setLastName(user.getLastName());
+        userView.setEmail(user.getEmail());
+
+        userView.setBirthYear("");
+        userView.setBirthMonth("");
+        userView.setBirthDay("");
+        Date birthDate = user.getBirthDate();
+        if (birthDate != null) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(birthDate);
+            userView.setBirthYear(String.valueOf(calendar.get(Calendar.YEAR)));
+            userView.setBirthMonth(String.valueOf(calendar.get(Calendar.MONTH) + 1));
+            userView.setBirthDay(String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
+            if (user.isEraBc()) {
+                userView.setBirthYear("-" + userView.getBirthYear());
+            }
+        }
+        return userView;
     }
 }

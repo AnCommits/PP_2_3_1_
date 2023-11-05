@@ -19,6 +19,4 @@ public interface UserService {
     void removeUserById(long id);
 
     void removeAllUsers();
-
-    void initTable();
 }
