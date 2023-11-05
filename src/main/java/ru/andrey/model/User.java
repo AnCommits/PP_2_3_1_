@@ -11,12 +11,12 @@ import java.util.GregorianCalendar;
 @Table(name = "users")
 public class User {
 
-    private final static Calendar newEra =
+    private static final Calendar newEra =
             new GregorianCalendar(1, Calendar.DECEMBER, 31, 23, 59, 59);
     static {
         newEra.set(Calendar.ERA, GregorianCalendar.BC);
     }
-    private final static Date date0 = newEra.getTime();
+    private static final Date date0 = newEra.getTime();
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

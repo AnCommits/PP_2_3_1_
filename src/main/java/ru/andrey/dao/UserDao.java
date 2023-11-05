@@ -8,7 +8,7 @@ public interface UserDao {
 
     void addUser(User user);
 
-    List<User> getAllUsers();
+    List<User> getAllUsersSorted(String column);
 
     User getUserById(long id);
 

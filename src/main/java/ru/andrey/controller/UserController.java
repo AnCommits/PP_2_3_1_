@@ -11,6 +11,7 @@ import ru.andrey.util.InitTable;
 import ru.andrey.util.UserView;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class UserController {
@@ -32,8 +33,8 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public String showUsers(ModelMap model) {
-        List<User> users = userService.getAllUsers();
+    public String showUsers(@RequestParam(required = false, name = "column") Optional<String> column, ModelMap model) {
+        List<User> users = userService.getAllUsersSorted(column.orElse("id"));
         model.addAttribute("users", users);
         model.addAttribute("userView", new UserView());
         return "users";
