@@ -10,7 +10,8 @@ public class UserView {
     private String firstName;
     private String lastName;
     private String email;
-    // Для обозначения года до н.э. используются отрицательные чмсла
+
+    /** If birthYear is negative, it indicates the BC era */
     private String birthYear;
     private String birthMonth;
     private String birthDay;

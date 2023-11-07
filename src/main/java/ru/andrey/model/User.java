@@ -7,16 +7,28 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+/**
+ * The procedure for creating a User object with a BC date.
+ * <p>
+ * setBirthDate and setEraBc in addition to setting its own value
+ * also mutually change the other field.
+ * Therefore, the order is as follows:
+ * 1st option
+ * Pass birthDate with the date BC to the constructor or setBirthDate.
+ * eraBc will be set automatically.
+ * 2nd option
+ * Pass birthDate to the constructor or setBirthDate without taking into account the era.
+ * Then call setEraBc(true) on the User object.
+ */
 @Entity
 @Table(name = "users")
 public class User {
 
-    private static final Calendar newEra =
-            new GregorianCalendar(1, Calendar.DECEMBER, 31, 23, 59, 59);
-    static {
-        newEra.set(Calendar.ERA, GregorianCalendar.BC);
-    }
-    private static final Date date0 = newEra.getTime();
+    /**
+     * Start date of a new era
+     */
+    private static final Date DATE0 =
+            (new GregorianCalendar(1, Calendar.JANUARY, 1, 0, 0, 0)).getTime();
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +47,9 @@ public class User {
     @Temporal(TemporalType.DATE)
     private Date birthDate;
 
-    // field keeps era in MySQL
+    /**
+     * Field keeps era in MySQL
+     */
     @Column(name = "era_bc")
     private boolean eraBc;
 
@@ -56,10 +70,7 @@ public class User {
 
     public User(String firstName, String lastName, String email, Date birthDate) {
         this(firstName, lastName, email);
-        this.birthDate = birthDate;
-        if (birthDate != null) {
-            eraBc = birthDate.before(date0);
-        }
+        setBirthDate(birthDate);
     }
 
     public long getId() {
@@ -100,23 +111,31 @@ public class User {
 
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
-        eraBc = birthDate.before(newEra.getTime());
+        if (birthDate != null) {
+            eraBc = birthDate.before(DATE0);
+        }
     }
 
     public boolean isEraBc() {
         return eraBc;
     }
 
+    /**
+     * When storing java.util.Date object in MySQL, the era information is lost.
+     * The eraBc field stores era information in MySQL.
+     * To compare dates considering era, the birthDate field must contain a date considering era.
+     * Recalculating is as follows.
+     *
+     * @param eraBc era of the BirthDate:
+     *              "true" for BC era
+     *              "false" for AD era
+     */
     public void setEraBc(boolean eraBc) {
         this.eraBc = eraBc;
-        // При сохранении даты java.util.Date в java.sql.Date информация об эре теряется.
-        // Поле eraBc сохраняет информацию об эре в MySQL.
-        // Для сравнения дат с учетом эры в поле birthDate должна быть дата с учетом эры.
-        // Пересчитываем дату.
         if (birthDate != null) {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(birthDate);
-            calendar.set(Calendar.ERA, isEraBc() ? GregorianCalendar.BC : GregorianCalendar.AD);
+            calendar.set(Calendar.ERA, eraBc ? GregorianCalendar.BC : GregorianCalendar.AD);
             setBirthDate(calendar.getTime());
         }
     }
@@ -133,7 +152,7 @@ public class User {
         final DateFormat BC = new SimpleDateFormat("yyyy-MM-dd до н.э.");
         final DateFormat AD = new SimpleDateFormat("yyyy-MM-dd");
         return birthDate != null
-                ? birthDate.before(newEra.getTime()) ? BC.format(birthDate) : AD.format(birthDate)
+                ? birthDate.before(DATE0) ? BC.format(birthDate) : AD.format(birthDate)
                 : "";
     }
 
