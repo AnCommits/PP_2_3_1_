@@ -9,7 +9,6 @@ import ru.andrey.dto.UserDto;
 import ru.andrey.mapper.UserMapper;
 import ru.andrey.model.User;
 import ru.andrey.service.UserService;
-import ru.andrey.util.InitTable;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,16 +19,14 @@ public class UserController {
     private long id;
 
     private final UserService userService;
-    private final InitTable initTable;
 
-    public UserController(UserService userService, InitTable initTable) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.initTable = initTable;
     }
 
     @GetMapping("/init")
     public String init() {
-        initTable.initTable();
+        userService.initTable();
         return "redirect:users";
     }
 

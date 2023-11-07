@@ -1,7 +1,6 @@
 package ru.andrey.dao;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import ru.andrey.model.User;
 
 import javax.persistence.EntityManager;
@@ -11,7 +10,6 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.logging.Logger;
 
-@Transactional
 @Repository
 public class UserDaoImp implements UserDao {
 
@@ -30,7 +28,6 @@ public class UserDaoImp implements UserDao {
         }
     }
 
-    @Transactional(readOnly = true)
     @Override
     public List<User> getAllUsersSorted(String column) {
         logger.info("column: " + column);
@@ -42,7 +39,6 @@ public class UserDaoImp implements UserDao {
         return users;
     }
 
-    @Transactional(readOnly = true)
     @Override
     public User getUserById(long id) {
         logger.info("id: " + id);
