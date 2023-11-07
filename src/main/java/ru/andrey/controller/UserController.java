@@ -5,10 +5,11 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.andrey.dto.UserDto;
+import ru.andrey.mapper.UserMapper;
 import ru.andrey.model.User;
 import ru.andrey.service.UserService;
 import ru.andrey.util.InitTable;
-import ru.andrey.util.UserView;
 
 import java.util.List;
 import java.util.Optional;
@@ -36,13 +37,13 @@ public class UserController {
     public String showUsers(@RequestParam(required = false, name = "column") Optional<String> column, ModelMap model) {
         List<User> users = userService.getAllUsersSorted(column.orElse("id"));
         model.addAttribute("users", users);
-        model.addAttribute("userView", new UserView());
+        model.addAttribute("userView", new UserDto());
         return "users";
     }
 
     @GetMapping("/add_user")
-    public String addUser(@ModelAttribute UserView userView) {
-        User user = userView.getUser();
+    public String addUser(@ModelAttribute UserDto userDto) {
+        User user = UserMapper.toUser(userDto);
         userService.addUser(user);
         return "redirect:users";
     }
@@ -56,15 +57,14 @@ public class UserController {
     @GetMapping("/show_update_user")
     public String show_update_user(@RequestParam(name = "id") long id, ModelMap model) {
         this.id = id;
-        UserView userView = UserView.getUserView(userService.getUserById(id));
-        model.addAttribute("userView", userView);
+        UserDto userDto = UserMapper.toUserDto(userService.getUserById(id));
+        model.addAttribute("userView", userDto);
         return "show_update_user";
     }
 
     @GetMapping("/update_user")
-    public String updateUser(@ModelAttribute UserView userView) {
-        User user = userView.getUser();
-        System.out.println(userView.getFirstName());
+    public String updateUser(@ModelAttribute UserDto userDto) {
+        User user = UserMapper.toUser(userDto);
         user.setId(this.id);
         userService.updateUser(user);
         return "redirect:users";

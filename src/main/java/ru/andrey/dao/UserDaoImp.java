@@ -37,7 +37,7 @@ public class UserDaoImp implements UserDao {
         String hql = "from User user order by user." + column;
         TypedQuery<User> query = entityManager.createQuery(hql, User.class);
         List<User> users = query.getResultList();
-        // Комментарий в setEraBc
+        // Comment in setEraBc
         users.forEach(u -> u.setEraBc(u.isEraBc()));
         return users;
     }
@@ -48,7 +48,7 @@ public class UserDaoImp implements UserDao {
         logger.info("id: " + id);
         User user = entityManager.find(User.class, id);
         if (user != null) {
-            // Комментарий в setEraBc
+            // Comment in setEraBc
             user.setEraBc(user.isEraBc());
         }
         return user;
