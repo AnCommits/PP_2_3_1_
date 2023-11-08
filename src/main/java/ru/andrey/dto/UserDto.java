@@ -8,9 +8,7 @@ public class UserDto {
     private String lastName;
     private String email;
 
-    /**
-     * If birthYear is negative, it indicates the BC era
-     */
+    /** If birthYear is negative, it indicates the BC era */
     private String birthYear;
     private String birthMonth;
     private String birthDay;

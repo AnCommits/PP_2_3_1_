@@ -3,8 +3,8 @@ package ru.andrey.init;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import ru.andrey.dao.UserDao;
 import ru.andrey.model.User;
+import ru.andrey.service.UserService;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -12,13 +12,13 @@ import java.util.GregorianCalendar;
 @Component
 public class Init implements InitializingBean {
 
-    private final UserDao userDao;
+    private final UserService userService;
 
-    public Init(UserDao userDao) {
-        this.userDao = userDao;
+    public Init(UserService userService) {
+        this.userService = userService;
     }
 
-    @Transactional
+//    @Transactional
     @Override
     public void afterPropertiesSet() throws Exception {
 
@@ -38,12 +38,12 @@ public class Init implements InitializingBean {
         User user5 = new User();
         user5.setFirstName("Неизвестный");
 
-        userDao.removeAllUsers();
+        userService.removeAllUsers();
 
-        userDao.addUser(user1);
-        userDao.addUser(user2);
-        userDao.addUser(user3);
-        userDao.addUser(user4);
-        userDao.addUser(user5);
+        userService.addUser(user1);
+        userService.addUser(user2);
+        userService.addUser(user3);
+        userService.addUser(user4);
+        userService.addUser(user5);
     }
 }
