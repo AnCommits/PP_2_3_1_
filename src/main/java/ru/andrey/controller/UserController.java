@@ -34,7 +34,7 @@ public class UserController {
     public String showUsers(@RequestParam(required = false, name = "column") Optional<String> column, ModelMap model) {
         List<User> users = userService.getAllUsersSorted(column.orElse("id"));
         model.addAttribute("users", users);
-        model.addAttribute("userView", new UserDto());
+        model.addAttribute("userDto", new UserDto());
         return "users";
     }
 
@@ -55,7 +55,7 @@ public class UserController {
     public String show_update_user(@RequestParam(name = "id") long id, ModelMap model) {
         this.id = id;
         UserDto userDto = UserMapper.toUserDto(userService.getUserById(id));
-        model.addAttribute("userView", userDto);
+        model.addAttribute("userDto", userDto);
         return "show_update_user";
     }
 

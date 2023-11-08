@@ -52,7 +52,7 @@
     </thead>
     <tbody>
     <tr style="border: 0">
-        <form th:action="add_user" th:object="${userView}" method="get">
+        <form th:action="add_user" th:object="${userDto}" method="get">
             <td><input type="text" id="firstName" size="15" th:field="*{firstName}"></td>
             <td><input type="text" id="lastName" size="20" th:field="*{lastName}"></td>
             <td><input type="text" id="email" size="25" th:field="*{email}"></td>
