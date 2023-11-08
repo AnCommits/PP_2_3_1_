@@ -16,8 +16,6 @@ import java.util.Optional;
 @Controller
 public class UserController {
 
-    private long id;
-
     private final UserService userService;
 
     public UserController(UserService userService) {
@@ -53,7 +51,6 @@ public class UserController {
 
     @GetMapping("/show_update_user")
     public String show_update_user(@RequestParam(name = "id") long id, ModelMap model) {
-        this.id = id;
         UserDto userDto = UserMapper.toUserDto(userService.getUserById(id));
         model.addAttribute("userDto", userDto);
         return "show_update_user";
@@ -62,7 +59,6 @@ public class UserController {
     @GetMapping("/update_user")
     public String updateUser(@ModelAttribute UserDto userDto) {
         User user = UserMapper.toUser(userDto);
-        user.setId(this.id);
         userService.updateUser(user);
         return "redirect:users";
     }

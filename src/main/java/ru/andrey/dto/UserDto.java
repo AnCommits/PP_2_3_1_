@@ -5,6 +5,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserDto {
 
+    private long id;
+
     private String firstName;
     private String lastName;
     private String email;
@@ -17,6 +19,14 @@ public class UserDto {
     private String birthDay;
 
     public UserDto() {
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getFirstName() {

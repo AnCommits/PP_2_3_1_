@@ -13,6 +13,7 @@ public class UserMapper {
 
     public static UserDto toUserDto(User user) {
         UserDto userDto = new UserDto();
+        userDto.setId(user.getId());
 
         userDto.setFirstName(user.getFirstName());
         userDto.setLastName(user.getLastName());
@@ -37,6 +38,7 @@ public class UserMapper {
 
     public static User toUser(UserDto userDto) {
         User user = new User(userDto.getFirstName(), userDto.getLastName(), userDto.getEmail());
+        user.setId(userDto.getId());
         try {
             String yearStr = userDto.getBirthYear();
             int year = Integer.parseInt(yearStr);
