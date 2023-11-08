@@ -22,12 +22,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/init")
-    public String init() {
-        userService.initTable();
-        return "redirect:users";
-    }
-
     @GetMapping("/users")
     public String showUsers(@RequestParam(required = false, name = "column") Optional<String> column, ModelMap model) {
         List<User> users = userService.getAllUsersSorted(column.orElse("id"));
