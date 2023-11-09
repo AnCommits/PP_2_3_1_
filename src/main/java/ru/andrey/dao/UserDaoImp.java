@@ -29,6 +29,17 @@ public class UserDaoImp implements UserDao {
     }
 
     @Override
+    public List<User> getAllUsers() {
+        logger.info("");
+        String hql = "from User";
+        TypedQuery<User> query = entityManager.createQuery(hql, User.class);
+        List<User> users = query.getResultList();
+        // Comment in setEraBc
+        users.forEach(u -> u.setEraBc(u.isEraBc()));
+        return users;
+    }
+
+    @Override
     public List<User> getAllUsersSorted(String column) {
         logger.info("column: " + column);
         String hql = "from User user order by user." + column;
