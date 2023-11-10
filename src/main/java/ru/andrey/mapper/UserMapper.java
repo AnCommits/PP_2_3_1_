@@ -22,7 +22,6 @@ public class UserMapper {
         userDto.setBirthYear("");
         userDto.setBirthMonth("");
         userDto.setBirthDay("");
-        userDto.setEraBC(userDto.isEraBC());
         Date birthDate = user.getBirthDate();
         if (birthDate != null) {
             Calendar calendar = Calendar.getInstance();
@@ -31,6 +30,7 @@ public class UserMapper {
             userDto.setBirthMonth(String.valueOf(calendar.get(Calendar.MONTH) + 1));
             userDto.setBirthDay(String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
         }
+        userDto.setEraBC(user.isEraBc());
         return userDto;
     }
 
