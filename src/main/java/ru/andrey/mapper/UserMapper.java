@@ -22,6 +22,7 @@ public class UserMapper {
         userDto.setBirthYear("");
         userDto.setBirthMonth("");
         userDto.setBirthDay("");
+        userDto.setEraBC(userDto.isEraBC());
         Date birthDate = user.getBirthDate();
         if (birthDate != null) {
             Calendar calendar = Calendar.getInstance();
@@ -29,9 +30,6 @@ public class UserMapper {
             userDto.setBirthYear(String.valueOf(calendar.get(Calendar.YEAR)));
             userDto.setBirthMonth(String.valueOf(calendar.get(Calendar.MONTH) + 1));
             userDto.setBirthDay(String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
-            if (user.isEraBc()) {
-                userDto.setBirthYear("-" + userDto.getBirthYear());
-            }
         }
         return userDto;
     }
@@ -42,8 +40,6 @@ public class UserMapper {
         try {
             String yearStr = userDto.getBirthYear();
             int year = Integer.parseInt(yearStr);
-            boolean eraBc = year < 0;
-            year = Math.abs(year);
             yearStr = String.format("%04d", year);
 
             int month = Integer.parseInt(userDto.getBirthMonth());
@@ -53,10 +49,10 @@ public class UserMapper {
             df.setLenient(false);
             Date date = df.parse(yearStr + String.format("%02d", month) + String.format("%02d", day));
             user.setBirthDate(date);
-            user.setEraBc(eraBc);
         } catch (NumberFormatException | ParseException e) {
             e.printStackTrace();
         }
+        user.setEraBc(userDto.isEraBC());
         return user;
     }
 }

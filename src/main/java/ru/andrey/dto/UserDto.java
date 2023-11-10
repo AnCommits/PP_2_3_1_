@@ -10,6 +10,7 @@ public class UserDto {
 
     /** If birthYear is negative, it indicates the BC era */
     private String birthYear;
+    private boolean eraBC;
     private String birthMonth;
     private String birthDay;
 
@@ -54,6 +55,14 @@ public class UserDto {
 
     public void setBirthYear(String birthYear) {
         this.birthYear = birthYear;
+    }
+
+    public boolean isEraBC() {
+        return eraBC;
+    }
+
+    public void setEraBC(boolean eraBC) {
+        this.eraBC = eraBC;
     }
 
     public String getBirthMonth() {
