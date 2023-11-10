@@ -2,7 +2,6 @@ package ru.andrey.init;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 import ru.andrey.model.User;
 import ru.andrey.service.UserService;
 
@@ -18,9 +17,8 @@ public class Init implements InitializingBean {
         this.userService = userService;
     }
 
-//    @Transactional
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
 
         User user1 = new User("Альберт", "Эйнштейн", "albert_einstein@gmail.com",
                 new GregorianCalendar(1879, Calendar.MARCH, 14).getTime());

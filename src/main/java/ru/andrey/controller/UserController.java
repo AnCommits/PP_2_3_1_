@@ -16,6 +16,7 @@ import java.util.Optional;
 @Controller
 public class UserController {
 
+    private String sortedByColumn = "id";
     private final UserService userService;
 
     public UserController(UserService userService) {
@@ -24,7 +25,8 @@ public class UserController {
 
     @GetMapping("/users")
     public String showUsers(@RequestParam(required = false, name = "column") Optional<String> column, ModelMap model) {
-        List<User> users = userService.getAllUsersSorted(column.orElse("id"));
+        sortedByColumn = column.orElse(sortedByColumn);
+        List<User> users = userService.getAllUsersSorted(sortedByColumn);
         model.addAttribute("users", users);
         model.addAttribute("userDto", new UserDto());
         return "users";
