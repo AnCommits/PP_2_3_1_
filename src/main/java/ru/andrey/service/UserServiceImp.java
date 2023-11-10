@@ -5,8 +5,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.andrey.dao.UserDao;
 import ru.andrey.model.User;
 
-import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -24,7 +22,7 @@ public class UserServiceImp implements UserService {
         userDao.addUser(user);
     }
 
-    @Override
+    @Transactional(readOnly = true)
     public List<User> getAllUsers() {
         return userDao.getAllUsers();
     }
@@ -32,16 +30,7 @@ public class UserServiceImp implements UserService {
     @Transactional(readOnly = true)
     @Override
     public List<User> getAllUsersSorted(String column) {
-        List<User> users;
-        if (column.equals("id")) {
-            users = userDao.getAllUsers();
-        } else if (column.equals("birthDate")) {
-            users = userDao.getAllUsers();
-            users.sort(User.userComparatorByBirthDate);
-        } else {
-            users = userDao.getAllUsersSorted(column);
-        }
-        return users;
+        return userDao.getAllUsersSorted(column);
     }
 
     @Transactional(readOnly = true)

@@ -4,7 +4,6 @@ import javax.persistence.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -166,13 +165,4 @@ public class User {
         return id + " " + getFirstName() + " " + getLastName() + " " + getEmail() + " " +
                 birthDateToString() + " " + recordDateTimeToString();
     }
-
-    public static Comparator<User> userComparatorByBirthDate =
-            (u1, u2) -> {
-                if (u1.getBirthDate() == null || u2.getBirthDate() == null) {
-                    return 1;
-                }
-                Comparator<Date> cd = Comparator.naturalOrder();
-                return cd.compare(u1.getBirthDate(), u2.getBirthDate());
-            };
 }

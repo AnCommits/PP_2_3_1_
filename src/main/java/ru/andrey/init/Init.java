@@ -38,6 +38,14 @@ public class Init implements InitializingBean {
         User user5 = new User();
         user5.setFirstName("Неизвестный");
 
+        User user6 = new User("a1", "f1", "",
+                new GregorianCalendar(99, Calendar.JANUARY, 2).getTime());
+        user6.setEraBc(true);
+
+        User user7 = new User("a2", "f1", "",
+                new GregorianCalendar(99, Calendar.JANUARY, 2).getTime());
+        user7.setEraBc(true);
+
         userService.removeAllUsers();
 
         userService.addUser(user1);
@@ -45,5 +53,7 @@ public class Init implements InitializingBean {
         userService.addUser(user3);
         userService.addUser(user4);
         userService.addUser(user5);
+        userService.addUser(user6);
+        userService.addUser(user7);
     }
 }
